@@ -45,11 +45,14 @@ services:
   backend:
     build: ./backend
     container_name: predictix_backend
+    restart: always
     ports:
       - "5000:5000"
     environment:
       - MONGO_URI=mongodb://mongodb:27017/predictix
       - KAFKA_BROKER=kafka:29092
+      - EMAIL_USER=${EMAIL_USER}
+      - EMAIL_PASS=${EMAIL_PASS}
     depends_on:
       - mongodb
       - kafka
@@ -57,16 +60,18 @@ services:
   ml-service:
     build: ./ml-service
     container_name: predictix_ml
+    restart: always
     ports:
       - "8000:8000"
-    depends_on:
-      - backend
 
   frontend:
     build: ./frontend
     container_name: predictix_frontend
+    restart: always
     ports:
       - "3000:80"
+    environment:
+      - VITE_API_URL=http://localhost:5000
     depends_on:
       - backend
 
