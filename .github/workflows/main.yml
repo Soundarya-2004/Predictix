@@ -1,0 +1,39 @@
+name: Predictix CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+        cache-dependency-path: './backend/package-lock.json'
+        
+    - name: Install Backend Dependencies
+      run: |
+        cd backend
+        npm install
+        
+    - name: Run Backend Tests
+      run: |
+        cd backend
+        # npm test (Add tests later)
+        
+    - name: Build Docker Images
+      run: |
+        docker-compose build
+        
+    # Add Deployment steps for AWS/GCP here
+    # - name: Deploy to Cloud
+    #   run: |
+    #     echo "Deploying to production..."
