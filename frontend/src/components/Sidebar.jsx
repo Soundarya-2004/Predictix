@@ -5,7 +5,7 @@ import { LayoutDashboard, Bell, Settings, Activity, User, LogOut } from 'lucide-
 const Sidebar = () => {
   const logoutHandler = () => {
     localStorage.removeItem('userInfo');
-    window.location.href = '/login';
+    window.location.href = '/auth';
   };
 
   return (
