@@ -6,7 +6,7 @@ import MachineCard from '../components/MachineCard';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import io from 'socket.io-client';
 
-const socket = io('http://localhost:5000');
+const socket = io(import.meta.env.VITE_API_URL || 'http://localhost:5000');
 
 const Dashboard = () => {
   const [machines, setMachines] = useState([]);
